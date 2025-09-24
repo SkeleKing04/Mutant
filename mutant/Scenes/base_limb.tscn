@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://q2xk3vvwgb6w"]
+
+[ext_resource type="Script" uid="uid://c63kqj7p26ij3" path="res://Scripts/base_limb.gd" id="1_2u2nx"]
+[ext_resource type="Texture2D" uid="uid://tmiqvcnhq0wv" path="res://icon.svg" id="2_ttdp0"]
+[ext_resource type="Script" uid="uid://dv23wrn3viyvt" path="res://Scripts/limb_manager.gd" id="3_gef1r"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_gef1r"]
+diffuse_texture = ExtResource("2_ttdp0")
+
+[node name="BaseLimb" type="Node2D"]
+script = ExtResource("1_2u2nx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("CanvasTexture_gef1r")
+
+[node name="Limb Manager" type="Node" parent="."]
+script = ExtResource("3_gef1r")
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
