@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=3 uid="uid://wl0rhx0mpmed"]
+
+[ext_resource type="Script" uid="uid://b67y1nsxxa5qx" path="res://Scripts/random_room.gd" id="1_ghujk"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6ojsv"]
+
+[node name="RandomRoom" type="Node3D" node_paths=PackedStringArray("AssetPoints")]
+script = ExtResource("1_ghujk")
+AssetPoints = [NodePath("Node/AssetPoint_North"), NodePath("Node/AssetPoint_NE"), NodePath("Node/AssetPoint_East"), NodePath("Node/AssetPoint_SE"), NodePath("Node/AssetPoint_South"), NodePath("Node/AssetPoint_SW"), NodePath("Node/AssetPoint_West"), NodePath("Node/AssetPoint_NW")]
+
+[node name="Model" type="Node" parent="."]
+
+[node name="RoomBase" type="Node3D" parent="Model"]
+
+[node name="Floor" type="MeshInstance3D" parent="Model/RoomBase"]
+mesh = SubResource("PlaneMesh_6ojsv")
+skeleton = NodePath("")
+
+[node name="Wall" type="MeshInstance3D" parent="Model/RoomBase"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -1)
+mesh = SubResource("PlaneMesh_6ojsv")
+skeleton = NodePath("")
+
+[node name="Wall2" type="MeshInstance3D" parent="Model/RoomBase"]
+transform = Transform3D(-1, 8.742278e-08, -3.821371e-15, 0, -4.371139e-08, -1, -8.742278e-08, -1, 4.371139e-08, 0, 0, 1)
+mesh = SubResource("PlaneMesh_6ojsv")
+skeleton = NodePath("")
+
+[node name="Wall3" type="MeshInstance3D" parent="Model/RoomBase"]
+transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 1, 0, 4.371139e-08)
+mesh = SubResource("PlaneMesh_6ojsv")
+skeleton = NodePath("")
+
+[node name="Wall4" type="MeshInstance3D" parent="Model/RoomBase"]
+transform = Transform3D(1.3113416e-07, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, 1.3113416e-07, -5.7320566e-15, -1, 0, -4.371139e-08)
+mesh = SubResource("PlaneMesh_6ojsv")
+skeleton = NodePath("")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="AssetPoint_North" type="Node3D" parent="Node"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.75)
+
+[node name="AssetPoint_NE" type="Node3D" parent="Node"]
+transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, 0.53033006, 0.5, -0.53033006)
+
+[node name="AssetPoint_East" type="Node3D" parent="Node"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.75, 0.5, 3.278354e-08)
+
+[node name="AssetPoint_SE" type="Node3D" parent="Node"]
+transform = Transform3D(-0.7071068, 0, -0.7071067, 0, 1, 0, 0.7071067, 0, -0.7071068, 0.53033006, 0.5, 0.53033006)
+
+[node name="AssetPoint_South" type="Node3D" parent="Node"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.75)
+
+[node name="AssetPoint_SW" type="Node3D" parent="Node"]
+transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, -0.53033006, 0.5, 0.53033006)
+
+[node name="AssetPoint_West" type="Node3D" parent="Node"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.75, 0.5, -3.278354e-08)
+
+[node name="AssetPoint_NW" type="Node3D" parent="Node"]
+transform = Transform3D(-0.7071068, 0, -0.7071067, 0, 1, 0, 0.7071067, 0, -0.7071068, -0.53033006, 0.5, -0.53033006)
+
+[connection signal="ready" from="." to="." method="_on_ready"]
