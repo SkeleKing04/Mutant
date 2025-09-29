@@ -3,12 +3,16 @@ extends Node
 class_name Limb_Manager
 
 var parent_socket = null
-var child_sockets = []
+var child_sockets = Array[Limb_Manager]
+
+# the parent should do all the managing all the children
 
 #adds a new attachment to this
 func add_child_socket(new_child : Limb_Manager):
+	# attaches the child to this
 	child_sockets.append(new_child)
-	new_child.attach_to_socket(self)
+	# applies the changes to the child
+	new_child.parent_socket = self
 	return
 
 #removes an existing attachment to this
@@ -17,19 +21,9 @@ func remove_child_socket(target_child : Limb_Manager):
 	var index = child_sockets.find(target_child)
 	#then removes the target if found
 	if index >= 0:
-		child_sockets[index].remove_self_from_socket()
+		child_sockets[index].parent_socket = null
 		child_sockets.remove_at(index)
 	return
-
-#adds self to target
-func attach_to_socket(target_limb : Limb_Manager):
-	parent_socket = target_limb
-	return
-
-#removes self from parent
-func remove_self_from_socket():
-	parent_socket = null
-	return;
 
 func run_operations(data):
 	#do things
