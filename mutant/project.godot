@@ -11,6 +11,6 @@ config_version=5
 [application]
 
 config/name="Mutant"
-run/main_scene="uid://q2xk3vvwgb6w"
+run/main_scene="uid://u10j26ne7s2p"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"

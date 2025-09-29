@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpxqu51tn7tks"]
+
+[sub_resource type="Gradient" id="Gradient_gw4hi"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_el47s"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f5f1n"]
+noise = SubResource("FastNoiseLite_el47s")
+color_ramp = SubResource("Gradient_gw4hi")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7j4j6"]
+albedo_texture = SubResource("NoiseTexture2D_f5f1n")
+
+[sub_resource type="BoxMesh" id="BoxMesh_gw4hi"]
+material = SubResource("StandardMaterial3D_7j4j6")
+
+[node name="SmallBox" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_gw4hi")

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dw7cmr1g3a4hh"]
+
+[ext_resource type="PackedScene" uid="uid://c03dclqsm6pdr" path="res://Scenes/BigBox.tscn" id="1_bk86u"]
+[ext_resource type="PackedScene" uid="uid://dpxqu51tn7tks" path="res://Scenes/SmallBox.tscn" id="2_2gh8i"]
+[ext_resource type="PackedScene" uid="uid://baygmjk7d3hts" path="res://Scenes/SmallBoxPile.tscn" id="3_fwx1u"]
+
+[node name="BoxPile" type="Node3D"]
+
+[node name="BigBox" parent="." instance=ExtResource("1_bk86u")]
+
+[node name="BigBox2" parent="." instance=ExtResource("1_bk86u")]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, 0, 1.5, 0)
+
+[node name="SmallBox" parent="." instance=ExtResource("2_2gh8i")]
+transform = Transform3D(0.9830923, 0, 0.18311065, 0, 1, 0, -0.18311065, 0, 0.9830923, -0.457, 0, 1.385)
+
+[node name="SmallBox2" parent="." instance=ExtResource("2_2gh8i")]
+transform = Transform3D(0.31170487, 0, 0.950179, 0, 1, 0, -0.950179, 0, 0.31170487, 1.25, 0, 1.035)
+
+[node name="SmallBoxPile" parent="." instance=ExtResource("3_fwx1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2561038, 0, -0.80653405)

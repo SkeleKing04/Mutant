@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c03dclqsm6pdr"]
+
+[ext_resource type="PackedScene" uid="uid://dpxqu51tn7tks" path="res://Scenes/SmallBox.tscn" id="1_5yvwq"]
+
+[node name="BigBox" type="Node3D"]
+
+[node name="SmallBox" parent="." instance=ExtResource("1_5yvwq")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)

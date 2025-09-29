@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://u10j26ne7s2p"]
+
+[ext_resource type="PackedScene" uid="uid://wl0rhx0mpmed" path="res://Scenes/RandomRoom.tscn" id="1_15u63"]
+
+[node name="TestingsScene" type="Node3D"]
+
+[node name="RandomRoom" parent="." instance=ExtResource("1_15u63")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.70710677, -0.579228, 0.4055798, 0, 0.57357645, 0.81915206, -0.70710677, -0.579228, 0.4055798, 20, 40, 20)
+fov = 30.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.70243883, -0.63604707, 0.3194117, 0, 0.4487732, 0.8936457, -0.7117441, -0.62773144, 0.31523573, 0, 0, 0)

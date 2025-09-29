@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://baygmjk7d3hts"]
+
+[ext_resource type="PackedScene" uid="uid://dpxqu51tn7tks" path="res://Scenes/SmallBox.tscn" id="1_85inw"]
+
+[node name="SmallBoxPile" type="Node3D"]
+
+[node name="SmallBox" parent="." instance=ExtResource("1_85inw")]
+
+[node name="SmallBox2" parent="." instance=ExtResource("1_85inw")]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, 0, 1, 0)
+
+[node name="SmallBox3" parent="." instance=ExtResource("1_85inw")]
+transform = Transform3D(0.49999997, 0, 0.86602545, 0, 1, 0, -0.86602545, 0, 0.49999997, 0, 2, 0)
