@@ -1,14 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://tjaedo4c7pa8"]
+[gd_scene load_steps=5 format=3 uid="uid://tjaedo4c7pa8"]
 
 [ext_resource type="PackedScene" uid="uid://q2xk3vvwgb6w" path="res://Scenes/base_limb.tscn" id="1_iumqr"]
 [ext_resource type="Script" uid="uid://di2mike51aqib" path="res://Scripts/StatManager.gd" id="1_ptfnq"]
 
-[node name="LimbTesting" type="Node3D" node_paths=PackedStringArray("_headLimb")]
+[sub_resource type="Gradient" id="Gradient_mtuuw"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_n3iy7"]
+gradient = SubResource("Gradient_mtuuw")
+use_hdr = true
+
+[node name="LimbTesting" type="Node3D"]
+
+[node name="Torso" type="Node" parent="." node_paths=PackedStringArray("_headLimb")]
 script = ExtResource("1_ptfnq")
 _headLimb = NodePath("BaseLimb")
 
-[node name="BaseLimb" parent="." instance=ExtResource("1_iumqr")]
+[node name="BaseLimb" parent="Torso" instance=ExtResource("1_iumqr")]
 
-[node name="BaseLimb2" parent="." instance=ExtResource("1_iumqr")]
+[node name="Node" type="Node" parent="."]
 
-[connection signal="ready" from="." to="." method="__onReady"]
+[node name="Button" type="Button" parent="Node"]
+offset_right = 8.0
+offset_bottom = 8.0
+icon = SubResource("GradientTexture2D_n3iy7")
+
+[connection signal="ready" from="." to="Torso" method="__onReady"]
+[connection signal="pressed" from="Node/Button" to="Torso" method="_onButtonPressed"]
