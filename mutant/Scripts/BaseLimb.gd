@@ -1,11 +1,15 @@
-extends Node2D
+extends Node
 
 class_name BaseLimb
-@export var weight : float
-@export var speed : float
+@export var _weight : float = 0
+@export var _speed : float = 0
 
 var _parentLimb = null
 @export var _childLimbs : Array[BaseLimb]
+
+func _init(weight : int = 0, speed : int = 0):
+	_weight = weight
+	_speed = speed
 
 func __limbFunction():
 	print("Hello World! Its me, " + name)
@@ -18,7 +22,7 @@ func __addChildLimb(newChild : BaseLimb):
 	_childLimbs.append(newChild)
 	# applies the changes to the child
 	newChild._parentLimb = self
-	newChild.reparent(self)
+	self.add_child(newChild)
 	return
 
 #removes an existing attachment to this
