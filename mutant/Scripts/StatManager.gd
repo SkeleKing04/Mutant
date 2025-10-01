@@ -26,9 +26,15 @@ func __calculateWeight(limb : BaseLimb) -> float:
 	
 func __calculateSpeed(limb : BaseLimb) -> float:
 	var sumSpeed = 0.0
+	match limb._type:
+		1:
+			sumSpeed = limb._speed
+		_:
+			sumSpeed = limb._speed * 0.5
+
 	for subLimb in limb._childLimbs:
 		sumSpeed += __calculateSpeed(subLimb)
-	return sumSpeed + limb._speed
+	return sumSpeed
 	
 func __calculateHealth(limb : BaseLimb) -> float:
 	var sumHealth = 0.0
@@ -43,8 +49,12 @@ func __calculateLimbCount(limb : BaseLimb) -> int:
 	return sumLimbs + 1
 
 
-func _onButtonPressed() -> void:
-	_headLimb.__addChildLimb(BaseLimb.new(10, 3))
+func __onButtonPressed() -> void:
+	var target = _headLimb
+	if _headLimb._childLimbs.size() > 0 and randi_range(0, 10) > 2:
+		target = _headLimb._childLimbs[randi_range(0, _headLimb._childLimbs.size() - 1)]
+		
+	target.__addChildLimb(BaseLimb.new(10, 3, randi_range(0, 4)))
 	__initialiseBody()
 	_headLimb.__executeBranchingFunctions(0)
 	pass # Replace with function body.

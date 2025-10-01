@@ -3,13 +3,15 @@ extends Node
 class_name BaseLimb
 @export var _weight : float = 0
 @export var _speed : float = 0
+@export_enum("ARM", "LEG", "FINGER", "HEAD", "OTHER") var _type
 
 var _parentLimb = null
 @export var _childLimbs : Array[BaseLimb]
 
-func _init(weight : int = 0, speed : int = 0):
+func _init(weight : int = 0, speed : int = 0, type = "OTHER"):
 	_weight = weight
 	_speed = speed
+	_type = type
 
 func __limbFunction():
 	print("Hello World! Its me, " + name)

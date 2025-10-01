@@ -25,4 +25,4 @@ offset_bottom = 8.0
 icon = SubResource("GradientTexture2D_n3iy7")
 
 [connection signal="ready" from="." to="Torso" method="__onReady"]
-[connection signal="pressed" from="Node/Button" to="Torso" method="_onButtonPressed"]
+[connection signal="pressed" from="Node/Button" to="Torso" method="__onButtonPressed"]
