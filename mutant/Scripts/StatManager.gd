@@ -1,10 +1,11 @@
 extends Node
 
-@export var _headLimb : BaseLimb
 var _summedWeight : float = 0
 var _summedSpeed : float = 0
 var _summedHealth : float = 0
 var _limbCount : Array[int] = [0, 0, 0, 0, 0]
+#the first is for arms, then legs, then any extras
+@export var _sockets : Dictionary = {"Arms" : {}, "Legs" : {}, "Other" : {}}
 
 func __limbSum() -> int:
 	var sum = 0
@@ -13,17 +14,36 @@ func __limbSum() -> int:
 	return sum
 
 func __onReady():
-	__initialiseBody()
-	_headLimb.__executeBranchingFunctions(0)
+	_sockets["Arms"]
 	pass
 	
-func __initialiseBody():
+func __executeLimbTrees():
+	for key in _sockets:
+		for socket in _sockets[key]:
+			get_node_and_resource(socket)[0].__executeBranchingFunctions(0)
+
+func __doLimbMaths():
+	#reset limb counts
 	for index in _limbCount.size():
 		_limbCount[index] = 0
-	__calculateLimbCount(_headLimb)
-	_summedWeight = __calculateWeight(_headLimb)
-	_summedSpeed = __calculateSpeed(_headLimb) / _summedWeight
-	_summedHealth = __calculateHealth(_headLimb)
+	
+	#count all the limbs
+	for key in _sockets:
+		for socket in _sockets[key]:
+			__calculateLimbCount(get_node_and_resource(socket)[0])
+	
+	#calculate the stats
+	_summedWeight = 0
+	_summedHealth = 0
+	_summedSpeed = 0
+	for key in _sockets:
+		for socket in _sockets[key]:
+			var sock = get_node_and_resource(socket)[0]
+			_summedWeight += __calculateWeight(sock)
+			_summedSpeed += __calculateSpeed(sock)
+			_summedHealth += __calculateHealth(sock)
+	_summedSpeed /= _summedWeight
+	#print them out
 	print("Stats | Limb Count: " + str(_limbCount) + " = " + str(__limbSum()) + " | Weight: " + str(_summedWeight) + " | Speed: " + str(_summedSpeed) + " | Health: " + str(_summedHealth))
 
 func __calculateWeight(limb : BaseLimb) -> float:
@@ -55,13 +75,27 @@ func __calculateLimbCount(limb : BaseLimb):
 		__calculateLimbCount(subLimb)
 	_limbCount[limb._type] += 1
 
-
-func __onButtonPressed() -> void:
-	var target = _headLimb
-	if _headLimb._childLimbs.size() > 0 and randi_range(0, 10) > 2:
-		target = _headLimb._childLimbs[randi_range(0, _headLimb._childLimbs.size() - 1)]
+#debug function - does whatever you need it to - REMOVE BEFORE ANY RELEASE!!!
+func __onButtonPressed(key):
+	#adding a limb to a random socket
+	#sum the socket weights
+	var sumWeights = 0
+	for socket in _sockets[key]:
+		sumWeights += _sockets[key][socket]
+	var roundedWeights = _sockets[key].values()
+	for weight in roundedWeights:
+		weight /= sumWeights
 		
-	target.__addChildLimb(BaseLimb.new(10, 3, randi_range(0, 4)))
-	__initialiseBody()
-	_headLimb.__executeBranchingFunctions(0)
-	pass # Replace with function body.
+	var rnd = randi_range(0, 100) / 100.0
+	var totalWeight = 0
+	for i in roundedWeights.size():
+		totalWeight += roundedWeights[i]
+		if rnd <= totalWeight:
+			#apply the limb here
+			#print(str(_sockets[key].keys()[i]))
+			get_node_and_resource(_sockets[key].keys()[i])[0].__addChildLimb(BaseLimb.new())
+			__doLimbMaths()
+			__executeLimbTrees()
+			pass
+		
+	pass

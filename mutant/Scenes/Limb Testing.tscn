@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://tjaedo4c7pa8"]
+[gd_scene load_steps=4 format=3 uid="uid://tjaedo4c7pa8"]
 
-[ext_resource type="PackedScene" uid="uid://q2xk3vvwgb6w" path="res://Scenes/base_limb.tscn" id="1_iumqr"]
 [ext_resource type="Script" uid="uid://di2mike51aqib" path="res://Scripts/StatManager.gd" id="1_ptfnq"]
 
 [sub_resource type="Gradient" id="Gradient_mtuuw"]
@@ -11,11 +10,43 @@ use_hdr = true
 
 [node name="LimbTesting" type="Node3D"]
 
-[node name="Torso" type="Node" parent="." node_paths=PackedStringArray("_headLimb")]
+[node name="Torso" type="Node" parent="."]
 script = ExtResource("1_ptfnq")
-_headLimb = NodePath("BaseLimb")
+_sockets = {
+"Arms": {
+NodePath("Arm Sockets/Head"): 0.1,
+NodePath("Arm Sockets/ShoulderLeft"): 0.175,
+NodePath("Arm Sockets/ShoulderRight"): 0.175,
+NodePath("Arm Sockets/UnderarmLeft"): 0.175,
+NodePath("Arm Sockets/UnderarmRight"): 0.175,
+NodePath("Arm Sockets/Chest"): 0.1,
+NodePath("Arm Sockets/Back"): 0.1,
+NodePath("Arm Sockets/ThighLeft"): 0.1,
+NodePath("Arm Sockets/ThighRight"): 0.1
+},
+"Legs": {},
+"Other": {}
+}
 
-[node name="BaseLimb" parent="Torso" instance=ExtResource("1_iumqr")]
+[node name="Arm Sockets" type="Node" parent="Torso"]
+
+[node name="Head" type="Node3D" parent="Torso/Arm Sockets"]
+
+[node name="ShoulderLeft" type="Node3D" parent="Torso/Arm Sockets"]
+
+[node name="ShoulderRight" type="Node3D" parent="Torso/Arm Sockets"]
+
+[node name="UnderarmLeft" type="Node3D" parent="Torso/Arm Sockets"]
+
+[node name="UnderarmRight" type="Node3D" parent="Torso/Arm Sockets"]
+
+[node name="Chest" type="Node3D" parent="Torso/Arm Sockets"]
+
+[node name="Back" type="Node3D" parent="Torso/Arm Sockets"]
+
+[node name="ThighLeft" type="Node3D" parent="Torso/Arm Sockets"]
+
+[node name="ThighRight" type="Node3D" parent="Torso/Arm Sockets"]
 
 [node name="Node" type="Node" parent="."]
 
@@ -25,4 +56,4 @@ offset_bottom = 8.0
 icon = SubResource("GradientTexture2D_n3iy7")
 
 [connection signal="ready" from="." to="Torso" method="__onReady"]
-[connection signal="pressed" from="Node/Button" to="Torso" method="__onButtonPressed"]
+[connection signal="pressed" from="Node/Button" to="Torso" method="__onButtonPressed" binds= ["Arms"]]
