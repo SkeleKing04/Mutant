@@ -61,7 +61,7 @@ func __onButtonPressed() -> void:
 	if _headLimb._childLimbs.size() > 0 and randi_range(0, 10) > 2:
 		target = _headLimb._childLimbs[randi_range(0, _headLimb._childLimbs.size() - 1)]
 		
-	target.__addChildLimb(BaseLimb.new(10, 3, randi_range(0, 4)))
+	target.__addChildLimb(LimbTable.__generateNewLimb(self)) #BaseLimb.new(10, 3, randi_range(0, 4)))
 	__initialiseBody()
 	_headLimb.__executeBranchingFunctions(0)
 	pass # Replace with function body.
