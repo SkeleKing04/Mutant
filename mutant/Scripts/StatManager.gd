@@ -4,7 +4,13 @@ extends Node
 var _summedWeight : float = 0
 var _summedSpeed : float = 0
 var _summedHealth : float = 0
-var _limbCount : int = 0
+var _limbCount : Array[int] = [0, 0, 0, 0, 0]
+
+func __limbSum() -> int:
+	var sum = 0
+	for value in _limbCount:
+		sum += value
+	return sum
 
 func __onReady():
 	__initialiseBody()
@@ -12,11 +18,13 @@ func __onReady():
 	pass
 	
 func __initialiseBody():
-	_limbCount = __calculateLimbCount(_headLimb)
+	for index in _limbCount.size():
+		_limbCount[index] = 0
+	__calculateLimbCount(_headLimb)
 	_summedWeight = __calculateWeight(_headLimb)
 	_summedSpeed = __calculateSpeed(_headLimb) / _summedWeight
 	_summedHealth = __calculateHealth(_headLimb)
-	print("Stats | Limb Count: " + str(_limbCount) + " | Weight: " + str(_summedWeight) + " | Speed: " + str(_summedSpeed) + " | Health: " + str(_summedHealth))
+	print("Stats | Limb Count: " + str(_limbCount) + " = " + str(__limbSum()) + " | Weight: " + str(_summedWeight) + " | Speed: " + str(_summedSpeed) + " | Health: " + str(_summedHealth))
 
 func __calculateWeight(limb : BaseLimb) -> float:
 	var sumWeight = 0.0
@@ -42,11 +50,10 @@ func __calculateHealth(limb : BaseLimb) -> float:
 		sumHealth += __calculateHealth(subLimb)
 	return sumHealth + limb._weight * 0.5
 	
-func __calculateLimbCount(limb : BaseLimb) -> int:
-	var sumLimbs = 0
+func __calculateLimbCount(limb : BaseLimb):
 	for subLimb in limb._childLimbs:
-		sumLimbs += __calculateLimbCount(subLimb)
-	return sumLimbs + 1
+		__calculateLimbCount(subLimb)
+	_limbCount[limb._type] += 1
 
 
 func __onButtonPressed() -> void:
