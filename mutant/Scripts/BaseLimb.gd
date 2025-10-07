@@ -3,12 +3,13 @@ extends Node
 class_name BaseLimb
 @export var _weight : float = 0
 @export var _speed : float = 0
-@export_enum("ARM", "LEG", "FINGER", "HEAD", "OTHER") var _type
+enum LimbType {HEAD, ARM, LEG, FINGER, OTHER}
+@export var _type : LimbType
 
 var _parentLimb = null
 @export var _childLimbs : Array[BaseLimb]
 
-func _init(weight : int = 0, speed : int = 0, type = "OTHER"):
+func _init(weight : int = 0, speed : int = 0, type = LimbType.HEAD):
 	_weight = weight
 	_speed = speed
 	_type = type
